@@ -2,10 +2,9 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows'
+  name: 'Default'  # Use your self-hosted agent pool
 
 variables:
-  # Update these to match your Azure setup
   azureSubscription: 'AzureServiceConnection'
   webAppName: 'WebAppHello' 
 
@@ -37,6 +36,8 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: Deploy
+    pool:
+      name: 'Default' # Also specify the pool here for the deployment job
     environment: 'production'
     strategy:
       runOnce:
